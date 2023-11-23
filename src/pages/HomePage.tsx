@@ -1,7 +1,20 @@
-import { Button, Card } from "antd"
+import { Button, Card, Pagination, PaginationProps } from "antd"
+import { useState } from "react";
 
 const { Meta } = Card;
 export function HomePage() {
+
+    const [paginationConfig, setPaginationConfig] = useState({
+        current: 1
+    })
+
+    const onPageChange: PaginationProps['onChange'] = (page) => {
+        console.log(page);
+        setPaginationConfig({
+            ...paginationConfig,
+            current: page
+        });
+    };
     return (<div className="bg-vlak">
         <div className="video_list flex flex-wrap gap-[20px] justify-center">
             {
@@ -18,12 +31,12 @@ export function HomePage() {
                         <div className="text-white text-sm" >
                             <div className="flex gap-[12px]">
                                 <span>Nguồn:</span>
-                                 <a className="text-yellow-500" target="_blank" href="/">fb</a>
+                                <a className="text-yellow-500" target="_blank" href="/">fb</a>
                             </div>
 
                             <div className="flex gap-[12px]">
                                 <span>Người đăng:</span>
-                                 <a className="text-yellow-500" target="_blank" href="/">Orisu</a>
+                                <a className="text-yellow-500" target="_blank" href="/">Orisu</a>
                             </div>
                             {/* <Button size="small">Chi tiet</Button> */}
                         </div>
@@ -32,6 +45,10 @@ export function HomePage() {
             }
 
 
+        </div>
+
+        <div className="flex justify-center mt-[25px]">
+            <Pagination current={paginationConfig.current} onChange={onPageChange} total={50} />
         </div>
     </div>)
 }
